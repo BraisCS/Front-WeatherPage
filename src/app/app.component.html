@@ -1,0 +1,23 @@
+<main class="Main-app">
+  <h1> Añade una ciudad </h1>
+  <section class="Section-app">
+    <input [(ngModel)]="newCityName" placeholder="Nueva ciudad" />
+    <button (click)="createCity()">Crear Ciudad</button>
+  </section>
+
+  <section class="Section2-app" >
+    <div class="DivSection2-app" *ngFor="let city of cities">
+      <h2>{{ city.name }}</h2>
+      <button (click)="getWeather(city.name)">Get Weather</button>
+      <button (click)="deleteCity(city.id)">Delete</button>
+    </div>
+    <div *ngIf="weatherData">
+      <h3>Weather Data for {{ weatherData.name }}</h3>
+      <p>Temperature: {{ weatherData.main.temp }} °C</p>
+      <p>Weather: {{ weatherData.weather[0].description }}</p>
+      <p>Humidity: {{ weatherData.main.humidity }}%</p>
+    </div>
+  </section> 
+</main>
+
+
