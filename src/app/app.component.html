@@ -5,19 +5,18 @@
     <button (click)="createCity()">Crear Ciudad</button>
   </section>
 
-  <section class="Section2-app" >
-    <div class="DivSection2-app" *ngFor="let city of cities">
-      <h2>{{ city.name }}</h2>
-      <button (click)="getWeather(city.name)">Get Weather</button>
-      <button (click)="deleteCity(city.id)">Delete</button>
+  <section class="Section2-app">
+    <div class="Section2-Div-app" *ngFor="let city of cities">
+      <div class="Section2-Div2-app" *ngIf="city.weatherData">
+        <div class="Div-Weather">
+          <h2> {{ city.name }}</h2>
+          <img class="Button-Delete-app" src="/cross.svg" alt="Cross" (click)="deleteCity(city.id)"/>
+        </div>
+        <div class="Div-Weather">
+          <p>{{ city.weatherData.weather[0].description }}</p>
+          <p> {{ city.weatherData.main.temp }} °C</p>
+        </div>
+      </div>
     </div>
-    <div *ngIf="weatherData">
-      <h3>Weather Data for {{ weatherData.name }}</h3>
-      <p>Temperature: {{ weatherData.main.temp }} °C</p>
-      <p>Weather: {{ weatherData.weather[0].description }}</p>
-      <p>Humidity: {{ weatherData.main.humidity }}%</p>
-    </div>
-  </section> 
+  </section>
 </main>
-
-

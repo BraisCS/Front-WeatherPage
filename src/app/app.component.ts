@@ -7,6 +7,7 @@ import { CityService } from './services/city.service';
 interface City {
   id: number;
   name: string;
+  weatherData?: any; // Añadir esta propiedad opcional
 }
 
 @Component({
@@ -14,12 +15,12 @@ interface City {
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css'],
   standalone: true,
-  imports: [CommonModule, HttpClientModule, FormsModule] 
+  imports: [CommonModule, HttpClientModule, FormsModule]
 })
 export class AppComponent implements OnInit {
   cities: City[] = [];
-  weatherData: any = null;
   newCityName: string = '';
+  title = "El tiempo"
 
   constructor(private cityService: CityService) {}
 
@@ -27,6 +28,7 @@ export class AppComponent implements OnInit {
     this.cityService.getCities().subscribe(
       data => {
         this.cities = data;
+        this.cities.forEach(city => this.getWeather(city));
       },
       error => {
         console.error('Error fetching cities:', error);
@@ -34,10 +36,10 @@ export class AppComponent implements OnInit {
     );
   }
 
-  getWeather(city: string): void {
-    this.cityService.getWeather(city).subscribe(
+  getWeather(city: City): void {
+    this.cityService.getWeather(city.name).subscribe(
       data => {
-        this.weatherData = data;
+        city.weatherData = data;
       },
       error => {
         console.error('Error fetching weather data:', error);
@@ -48,6 +50,7 @@ export class AppComponent implements OnInit {
   deleteCity(id: number): void {
     this.cityService.deleteCity(id).subscribe(
       response => {
+        console.log(response.message);
         this.cities = this.cities.filter(city => city.id !== id);
       },
       error => {
@@ -60,8 +63,11 @@ export class AppComponent implements OnInit {
     if (this.newCityName.trim()) {
       this.cityService.createCity(this.newCityName).subscribe(
         response => {
-          this.cities.push({ id: response.id, name: this.newCityName });
+          console.log(response.message);
+          const newCity: City = { id: response.id, name: this.newCityName };
+          this.cities.push(newCity);
           this.newCityName = '';
+          this.getWeather(newCity); // Obtener el clima para la nueva ciudad
         },
         error => {
           console.error('Error creating city:', error);
