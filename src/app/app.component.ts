@@ -7,7 +7,7 @@ import { CityService } from './services/city.service';
 interface City {
   id: number;
   name: string;
-  weatherData?: any; // Añadir esta propiedad opcional
+  weatherData?: any; 
 }
 
 @Component({
@@ -20,7 +20,8 @@ interface City {
 export class AppComponent implements OnInit {
   cities: City[] = [];
   newCityName: string = '';
-  title = "El tiempo"
+  title = "El tiempo";
+  selectedCity: City | null = null;
 
   constructor(private cityService: CityService) {}
 
@@ -67,12 +68,16 @@ export class AppComponent implements OnInit {
           const newCity: City = { id: response.id, name: this.newCityName };
           this.cities.push(newCity);
           this.newCityName = '';
-          this.getWeather(newCity); // Obtener el clima para la nueva ciudad
+          this.getWeather(newCity);
         },
         error => {
           console.error('Error creating city:', error);
         }
       );
     }
+  }
+
+  selectCity(city: City): void {
+    this.selectedCity = city;
   }
 }

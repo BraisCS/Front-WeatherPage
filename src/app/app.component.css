@@ -1,45 +1,78 @@
 .Main-app {
     display: flex;
-    flex-direction: column;
-    justify-content: start;
-    align-items: center;
-}
-
-.Main-app h1 {
-    color: aliceblue;
-}
-
-.Section-app {
-    display: flex;
     flex-direction: row;
     justify-content: start;
     align-items: start;
 }
 
-.Section2-app {
-    margin-top: 5rem;
-    width: 100%;
+.Article-app {
+    padding-top: 2rem;
+    padding-bottom: 2rem;
     display: flex;
     flex-direction: column;
     justify-content: start;
     align-items: center;
-    gap: 2rem;
-
+    height: 91vh;
+    background-color: #0096c7;
+    width: 30%;
+    overflow-y: scroll;
 }
 
-.Section2-Div-app {
+.Article-Div-app {
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+    align-items: center;
+}
+
+.Search {
+    align-items: center;
+    padding: 0.2rem;
+    width: 65%;
+    height: 2rem;
+    border-radius: 0.9rem;
+}
+
+.Button-Search{
+    background: rgba(57, 194, 33, 0.772);
+    box-shadow: 0 8px 32px 0 rgba( 31, 38, 135, 0.37 );
+    backdrop-filter: blur( 5px );
+    -webkit-backdrop-filter: blur( 5px );
+    border: 1px solid rgba( 255, 255, 255, 0.18 );
+    border-radius: 1.5rem;
+    align-items: center;
+    padding: 0.2rem;
+    width: 25%;
+    height: 2rem;
+}
+
+.Section-app {
+    margin-top: 2rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: start;
+    align-items: center;
+    gap: 3rem;
+}
+
+.Section-Div-app {
+    background: rgba( 255, 255, 255, 0.2 );
+    box-shadow: 0 8px 32px 0 rgba( 31, 38, 135, 0.37 );
+    backdrop-filter: blur( 5px );
+    -webkit-backdrop-filter: blur( 5px );
+    border: 1px solid rgba( 255, 255, 255, 0.18 );
     display: flex;
     flex-direction: row;
     justify-content: center;
-    align-items: center;
+    align-items: start;
     gap: 1rem;
-    border: 1px solid white;
     border-radius: 1.5rem;
     width: 25rem;
     padding-top: 0.2rem;
 }
 
-.Section2-Div2-app {
+.Section-Div2-app {
     width: 100%;
     display: flex;
     flex-direction: column;
@@ -52,7 +85,7 @@
     display: flex;
     flex-direction: row;
     justify-content: space-between;
-    align-items: start;
+    align-items: center;
 }
 
 .Button-Delete-app {
@@ -64,6 +97,23 @@
 
 
 h2 {
+    text-transform: capitalize;
     color: white;
+    cursor: pointer;
+}
+
+p {
+    color: white;
+    font-size: medium;
+}
+
+.Article2-app{
+    height: 100vh;
+    width: 70%;
+    background-color:#023e8a ;
+}
+
+.Article2-Section{
+    flex-direction: column;
 }
 

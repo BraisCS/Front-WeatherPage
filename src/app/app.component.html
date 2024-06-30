@@ -1,22 +1,49 @@
 <main class="Main-app">
-  <h1> Añade una ciudad </h1>
-  <section class="Section-app">
-    <input [(ngModel)]="newCityName" placeholder="Nueva ciudad" />
-    <button (click)="createCity()">Crear Ciudad</button>
-  </section>
-
-  <section class="Section2-app">
-    <div class="Section2-Div-app" *ngFor="let city of cities">
-      <div class="Section2-Div2-app" *ngIf="city.weatherData">
-        <div class="Div-Weather">
-          <h2> {{ city.name }}</h2>
-          <img class="Button-Delete-app" src="/cross.svg" alt="Cross" (click)="deleteCity(city.id)"/>
-        </div>
-        <div class="Div-Weather">
-          <p>{{ city.weatherData.weather[0].description }}</p>
-          <p> {{ city.weatherData.main.temp }} °C</p>
+  <article class="Article-app">
+    <div class="Article-Div-app">
+      <input class="Search" [(ngModel)]="newCityName" placeholder="Nueva ciudad" />
+      <button class="Button-Search" (click)="createCity()">Añadir</button>
+    </div>
+    <section class="Section-app">
+      <div *ngIf="cities.length === 0">
+        <p> No hay ciudades añadidas</p>
+      </div>
+      <div class="Section-Div-app" *ngFor="let city of cities; let i = index">
+        <div class="Section-Div2-app" *ngIf="city.weatherData">
+          <div class="Div-Weather">
+            <h2 (click)="selectCity(city)"> {{ city.name }}</h2>
+            <img class="Button-Delete-app" src="/cross.svg" alt="Cross" (click)="deleteCity(city.id)"/>
+          </div>
+          <div class="Div-Weather">
+            <img [src]="'http://openweathermap.org/img/wn/' + city.weatherData.weather[0].icon + '@2x.png'" 
+            [class.yellow-sun]="city.weatherData.weather[0].icon === '01d'" 
+            alt="Weather icon">
+            <p>Mínima: {{ city.weatherData.main.temp_min }} °C</p>
+            <p>Máxima: {{ city.weatherData.main.temp_max }} °C</p>
+          </div>
         </div>
       </div>
+    </section>
+  </article>
+  <article class="Article2-app">
+    <div *ngIf="selectedCity">
+      <section class="Article2-Section">
+        <h2>{{ selectedCity.name }}</h2>
+      </section>
+      <img [src]="'http://openweathermap.org/img/wn/' + selectedCity.weatherData.weather[0].icon + '@2x.png'" alt="Weather icon">
+      <p>{{ selectedCity.weatherData.weather[0].description }}</p>
+      <p>Temperatura: {{ selectedCity.weatherData.main.temp }} °C</p>
+      <p>Sensación térmica: {{ selectedCity.weatherData.main.feels_like }} °C</p>
+      <p>Temperatura mínima: {{ selectedCity.weatherData.main.temp_min }} °C</p>
+      <p>Temperatura máxima: {{ selectedCity.weatherData.main.temp_max }} °C</p>
+      <p>Presión: {{ selectedCity.weatherData.main.pressure }} hPa</p>
+      <p>Humedad: {{ selectedCity.weatherData.main.humidity }}%</p>
+      <p>Velocidad del viento: {{ selectedCity.weatherData.wind.speed }} m/s</p>
+      <p>Dirección del viento: {{ selectedCity.weatherData.wind.deg }}°</p>
+      <p>Nubosidad: {{ selectedCity.weatherData.clouds.all }}%</p>
+      <p>Visibilidad: {{ selectedCity.weatherData.visibility }} m</p>
+      <p>Amanecer: {{ (selectedCity.weatherData.sys.sunrise * 1000) | date:'shortTime' }}</p>
+      <p>Atardecer: {{ (selectedCity.weatherData.sys.sunset * 1000) | date:'shortTime' }}</p>
     </div>
-  </section>
+  </article>
 </main>
